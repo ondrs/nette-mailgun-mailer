@@ -10,20 +10,24 @@ use Nette\Mail\MimePart;
 class Mailer implements IMailer
 {
 
+    /** @var string */
+    private $domain;
+
     /** @var Mailgun */
     private $mailgun;
-
-    /** @var  Options */
-    private $options;
 
     /** @var SendResponse|NULL */
     private $lastResponse;
 
 
-    public function __construct(array $options)
+    /**
+     * @param string  $domain
+     * @param Mailgun $mailgun
+     */
+    public function __construct($domain, Mailgun $mailgun)
     {
-        $this->options = new Options($options);
-        $this->mailgun = Mailgun::create($this->options->apiKey);
+        $this->domain = $domain;
+        $this->mailgun = $mailgun;
     }
 
 
@@ -69,7 +73,7 @@ class Mailer implements IMailer
 
         // last response is intently stored in the property bcs the interface's return type is void
         $this->lastResponse = $this->mailgun->messages()
-            ->send($this->options->domain, [
+            ->send($this->domain, [
                 'from' => $msg->getEncodedHeader('From'),
                 'to' => $msg->getEncodedHeader('To'),
                 'cc' => $msg->getEncodedHeader('Cc'),

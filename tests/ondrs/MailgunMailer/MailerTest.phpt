@@ -27,7 +27,7 @@ HTML;
     function setUp()
     {
         $this->options = require __DIR__ . '/../../options.php';
-        $this->mailer = new \ondrs\MailgunMailer\Mailer($this->options);
+        $this->mailer = new \ondrs\MailgunMailer\Mailer($this->options['domain'], \Mailgun\Mailgun::create($this->options['apiKey']));
     }
 
 
@@ -38,6 +38,24 @@ HTML;
         $message->setSubject('simple email');
         $message->setFrom($this->options['from'], 'mailgun mailer test');
         $message->addTo($this->options['to']);
+
+        $this->mailer->send($message);
+
+        Assert::type(\Mailgun\Model\Message\SendResponse::class, $this->mailer->getLastResponse());
+    }
+
+    function testSimpleEmailWithCcAndBcc()
+    {
+        $message = new \Nette\Mail\Message();
+        $message->setBody('simple email body');
+        $message->setSubject('simple email with cc and bcs');
+        $message->setFrom($this->options['from'], 'mailgun mailer test');
+        $message->addTo($this->options['to']);
+
+        $message->addCc($this->options['to'], 'cc1');
+        $message->addCc($this->options['to'], 'cc2');
+        $message->addBcc($this->options['to'], 'bcc1');
+        $message->addBcc($this->options['to'], 'bcc2');
 
         $this->mailer->send($message);
 
