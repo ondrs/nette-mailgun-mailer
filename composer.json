@@ -3,7 +3,11 @@
   "license": "MIT",
   "type": "library",
   "description": "",
-  "keywords": ["nette", "mailgun", "mailer"],
+  "keywords": [
+    "nette",
+    "mailgun",
+    "mailer"
+  ],
   "homepage": "http://ondraplsek.cz",
   "authors": [
     {
@@ -22,9 +26,11 @@
     "guzzlehttp/psr7": "^1.4"
   },
   "require-dev": {
-    "nette/tester": "~1.7.0",
+    "nette/tester": "~1.7.0"
   },
   "autoload": {
-    "classmap": ["src/"]
+    "classmap": [
+      "src/"
+    ]
   }
 }
