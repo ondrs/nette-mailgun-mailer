@@ -51,7 +51,6 @@ class Mailer implements IMailer
         $inlines->setAccessible(TRUE);
 
         $msg->generateMessage();
-        $headers = $msg->getHeaders();
 
         $htmlBody = $msg->getHtmlBody();
 
@@ -71,44 +70,16 @@ class Mailer implements IMailer
         // last response is intently stored in the property bcs the interface's return type is void
         $this->lastResponse = $this->mailgun->messages()
             ->send($this->options->domain, [
-                'from' => self::parseHeader($headers, 'From'),
-                'to' => self::parseHeader($headers, 'To'),
-                'cc' => self::parseHeader($headers, 'Cc'),
-                'bcc' => self::parseHeader($headers, 'Bcc'),
+                'from' => $msg->getEncodedHeader('From'),
+                'to' => $msg->getEncodedHeader('To'),
+                'cc' => $msg->getEncodedHeader('Cc'),
+                'bcc' => $msg->getEncodedHeader('Bcc'),
                 'subject' => $msg->getSubject(),
                 'html' => $htmlBody,
                 'text' => $msg->getBody(),
                 'attachment' => self::createAttachments($msg->getAttachments()),
                 'inline' => self::createAttachments($inlines->getValue($msg)),
             ]);
-    }
-
-
-    /**
-     * @param array  $header
-     * @param string $key
-     * @return NULL|string
-     */
-    public static function parseHeader(array $header, $key)
-    {
-        if (!array_key_exists($key, $header)) {
-            return NULL;
-        }
-
-        if (is_array($header[$key])) {
-            $s = '';
-            foreach ((array)$header[$key] as $email => $name) {
-                if ($name != NULL) { // intentionally ==
-                    $s .= $name;
-                    $email = " <$email>";
-                }
-                $s .= $email . ',';
-            }
-
-            return rtrim($s, ','); // last comma
-        }
-
-        return $header[$key];
     }
 
 
