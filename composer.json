@@ -2,7 +2,7 @@
   "name": "ondrs/nette-mailgun-mailer",
   "license": "MIT",
   "type": "library",
-  "description": "",
+  "description": "Implementation of Nette\\IMailer for Mailgun PHP SDK.",
   "keywords": [
     "nette",
     "mailgun",
