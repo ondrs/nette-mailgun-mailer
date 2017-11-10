@@ -20,14 +20,19 @@ class Extension extends CompilerExtension
         $config = $this->getConfig($this->defaults);
         $builder = $this->getContainerBuilder();
 
-        $mailer = $builder->addDefinition($this->prefix('mailer'))
-            ->setClass(\Nette\Mail\IMailer::class);
+        $builder->addDefinition($this->prefix('mailgun'))
+            ->setFactory('Mailgun\Mailgun::create', [
+                $config['apiKey']
+            ]);
 
-        $mailer->setFactory(Mailer::class, [$config]);
+        $builder->getDefinition('mail.mailer')
+            ->setFactory(Mailer::class, [
+                $config['domain'],
+                $builder->getDefinition($this->prefix('mailgun'))
+            ]);
 
-        if ($this->name === 'mail') {
-            $builder->addAlias('nette.mailer', $this->prefix('mailer'));
-        }
+        $builder->addAlias($this->prefix('mailer'), 'mail.mailer');
+
     }
 
 }

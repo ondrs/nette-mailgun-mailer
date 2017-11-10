@@ -1,0 +1,6 @@
+extensions:
+  mailgun: ondrs\MailgunMailer\DI\Extension
+
+mailgun:
+  apiKey: 'testing-api-key'
+  domain: 'domain.com'

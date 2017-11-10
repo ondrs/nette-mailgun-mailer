@@ -26,7 +26,11 @@ HTML;
 
     function setUp()
     {
-        $this->options = require __DIR__ . '/../../options.php';
+        $optionsFile = __DIR__ . '/../../options.php';
+        $this->options = is_file($optionsFile)
+            ? require $optionsFile
+            : require __DIR__ . '/../../options.env.php';
+
         $this->mailer = new \ondrs\MailgunMailer\Mailer($this->options['domain'], \Mailgun\Mailgun::create($this->options['apiKey']));
     }
 
