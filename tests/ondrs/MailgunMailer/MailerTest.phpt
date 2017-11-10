@@ -53,9 +53,7 @@ HTML;
         $message->addTo($this->options['to']);
 
         $message->addCc($this->options['to'], 'cc1');
-        $message->addCc($this->options['to'], 'cc2');
         $message->addBcc($this->options['to'], 'bcc1');
-        $message->addBcc($this->options['to'], 'bcc2');
 
         $this->mailer->send($message);
 
