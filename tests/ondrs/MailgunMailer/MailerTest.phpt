@@ -7,10 +7,13 @@ require_once __DIR__ . '/../../bootstrap.php';
 class MailerTest extends Tester\TestCase
 {
 
-    /** @var  \ondrs\MailgunMailer\Mailer */
+    /** @var \ondrs\MailgunMailer\Mailer */
     private $mailer;
 
-    /** @var array  */
+    /** @var \Mailgun\Mailgun */
+    private $mailgun;
+
+    /** @var array */
     private $options = [];
 
     private $html = <<<HTML
@@ -31,7 +34,21 @@ HTML;
             ? require $optionsFile
             : require __DIR__ . '/../../options.env.php';
 
-        $this->mailer = new \ondrs\MailgunMailer\Mailer($this->options['domain'], \Mailgun\Mailgun::create($this->options['apiKey']));
+        $this->mailgun = \Mailgun\Mailgun::create($this->options['apiKey']);
+
+        $this->mailer = new \ondrs\MailgunMailer\Mailer($this->options['domain'], $this->mailgun);
+    }
+
+
+    function testEmptyDomain()
+    {
+        Assert::exception(function () {
+            new \ondrs\MailgunMailer\Mailer(NULL, $this->mailgun);
+        }, \ondrs\MailgunMailer\InvalidArgumentException::class);
+
+        Assert::exception(function () {
+            new \ondrs\MailgunMailer\Mailer('', $this->mailgun);
+        }, \ondrs\MailgunMailer\InvalidArgumentException::class);
     }
 
 

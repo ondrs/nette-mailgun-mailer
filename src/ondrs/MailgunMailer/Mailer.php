@@ -22,9 +22,14 @@ class Mailer implements IMailer
     /**
      * @param string  $domain
      * @param Mailgun $mailgun
+     * @throws \ondrs\MailgunMailer\InvalidArgumentException
      */
     public function __construct($domain, Mailgun $mailgun)
     {
+        if (!$domain) {
+            throw new InvalidArgumentException('Domain cannot be empty');
+        }
+
         $this->domain = $domain;
         $this->mailgun = $mailgun;
     }
