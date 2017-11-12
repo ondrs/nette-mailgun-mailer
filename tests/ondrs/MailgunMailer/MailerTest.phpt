@@ -48,6 +48,22 @@ HTML;
         Assert::type(\Mailgun\Model\Message\SendResponse::class, $this->mailer->getLastResponse());
     }
 
+
+    function testSimpleEmailWithReply()
+    {
+        $message = new \Nette\Mail\Message();
+        $message->setBody('simple email body');
+        $message->setSubject('simple email with reploy');
+        $message->setFrom($this->options['from'], 'mailgun mailer test');
+        $message->addReplyTo('reploy@email.com', 'John Reply');
+        $message->addTo($this->options['to']);
+
+        $this->mailer->send($message);
+
+        Assert::type(\Mailgun\Model\Message\SendResponse::class, $this->mailer->getLastResponse());
+    }
+
+
     function testSimpleEmailWithCcAndBcc()
     {
         $message = new \Nette\Mail\Message();

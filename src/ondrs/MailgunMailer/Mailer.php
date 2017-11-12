@@ -78,6 +78,7 @@ class Mailer implements IMailer
                 'to' => $msg->getEncodedHeader('To'),
                 'cc' => $msg->getEncodedHeader('Cc'),
                 'bcc' => $msg->getEncodedHeader('Bcc'),
+                'h:Reply-To' => $msg->getEncodedHeader('Reply-To'),
                 'subject' => $msg->getSubject(),
                 'html' => $htmlBody,
                 'text' => $msg->getBody(),
