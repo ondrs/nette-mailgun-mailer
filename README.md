@@ -1,4 +1,4 @@
-Nette Mailgun Mailer [![Build Status](https://travis-ci.org/ondrs/nette-mailgun-mailer.svg?branch=master)](https://travis-ci.org/ondrs/nette-mailgun-mailer)
+Nette Mailgun Mailer [![Total Downloads](https://poser.pugx.org/ondrs/nette-mailgun-mailer/downloads)](https://packagist.org/packages/ondrs/nette-mailgun-mailer) [![Build Status](https://travis-ci.org/ondrs/nette-mailgun-mailer.svg?branch=master)](https://travis-ci.org/ondrs/nette-mailgun-mailer) [![Latest Stable Version](https://poser.pugx.org/ondrs/nette-mailgun-mailer/v/stable)](https://packagist.org/packages/ondrs/nette-mailgun-mailer)
 ==============
 
 Implementation of Nette\IMailer for Mailgun PHP SDK.
