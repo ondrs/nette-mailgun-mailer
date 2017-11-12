@@ -55,7 +55,7 @@ HTML;
         $message->setBody('simple email body');
         $message->setSubject('simple email with reploy');
         $message->setFrom($this->options['from'], 'mailgun mailer test');
-        $message->addReplyTo('reploy@email.com', 'John Reply');
+        $message->addReplyTo('reply@email.com', 'John Reply');
         $message->addTo($this->options['to']);
 
         $this->mailer->send($message);

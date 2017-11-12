@@ -8,7 +8,7 @@ Installation
 
 composer.json
 
-    "ondrs/nette-mailgun-mailer": "v0.1.0"
+    "ondrs/nette-mailgun-mailer": "v0.2.0"
 
 Configuration
 -----

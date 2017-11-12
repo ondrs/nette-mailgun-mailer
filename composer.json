@@ -31,6 +31,9 @@
   "autoload": {
     "classmap": [
       "src/"
+    ],
+    "files": [
+      "src/ondrs/MailgunMailer/functions.php"
     ]
   }
 }
